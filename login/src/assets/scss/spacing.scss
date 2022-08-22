@@ -1,0 +1,29 @@
+// Margin
+@for $i from 1 through 5 {
+  .m-#{$i} {
+    margin: 1rem * $i;
+  }
+}
+
+@each $abbr, $name in ("t": "top", "r": "right", "b": "bottom", "l": "left") {
+  @for $i from 1 through 5 {
+    .m#{$abbr}-#{$i} {
+      margin-#{$name}: 1rem * $i;
+    }
+  }
+}
+
+// Padding
+@for $i from 1 through 5 {
+  .p-#{$i} {
+    padding: 1rem * $i;
+  }
+}
+
+@each $abbr, $name in ("t": "top", "r": "right", "b": "bottom", "l": "left") {
+  @for $i from 1 through 5 {
+    .p#{$abbr}-#{$i} {
+      padding-#{$name}: 1rem * $i;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+
+@mixin background($imgpath,$position:0 0,$size: cover,$color: transparent,$repeat: no-repeat) {
+  background: {
+      image: url($imgpath);
+      position: $position;
+      color: $color;
+      size: $size;
+      repeat: $repeat;
+  }
+}
+
+@mixin boxing($position,$top: 0,$right: 0,$width: 100%, $height: 100vh ) {
+  position: $position;
+  top: $top;
+  right: $right;
+  width: $width;
+  height: $height;
+}
+
+.card.bg-white {
+  background-color: white;
+}
+
+.bg-primary {
+  @include background('/assets/img/background.jpg',center center);
+}
+
+.fullwidth {
+  @include boxing(fixed,0,0,100%,100vh);
+}
+
+.content-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 960px) {
+
+  .card.bg-white {
+    background-color: transparent;
+  }
+}
