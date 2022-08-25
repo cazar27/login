@@ -1,12 +1,30 @@
-<div class="form">
-  <div class="profile-avatar" style="background-image: url('/assets/img/logo.jpg');" alt="avatar profile"></div>
+<div class="card bg-white mt-5 p-2">
+  <app-avatar-profile [img]="imgProfile"></app-avatar-profile>
   <h2 class="title-form">
     Prueba técnica
   </h2>
-  <p>
-    <i class="icon-user"></i>
-    <i class="icon-lock"></i>
-  </p>
+  <div class="form form-login">
+    <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="submitForm()">
+
+      <mat-form-field appearance="fill">
+        <mat-label><i class="icon-user"></i> Email</mat-label>
+        <input matInput placeholder="" formControlName="email" required>
+        <mat-error *ngIf="fieldNotValid('email')">{{ emailErrorMsg }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label><i class="icon-lock"></i> Constraseña</mat-label>
+        <input matInput formControlName="pwd" required [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <app-switcher [textSlide]="switcherText" [checked]="true" [disabled]="false" ></app-switcher>
+      <app-button [titleBtn]="btnText"></app-button>
+    </form>
+  </div>
 </div>
 
 <div class="link-signin">

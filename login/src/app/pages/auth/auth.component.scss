@@ -17,10 +17,6 @@
   height: $height;
 }
 
-.card.bg-white {
-  background-color: white;
-}
-
 .bg-primary {
   @include background('/assets/img/background.jpg',center center);
 }

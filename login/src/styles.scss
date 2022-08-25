@@ -1,8 +1,6 @@
-
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -13,34 +11,38 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$login-primary: mat.define-palette(mat.$indigo-palette);
-$login-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$login-primary: mat.define-palette(mat.$blue-palette);
+$login-accent: mat.define-palette(mat.$purple-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $login-warn: mat.define-palette(mat.$red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$login-theme: mat.define-light-theme((
-  color: (
-    primary: $login-primary,
-    accent: $login-accent,
-    warn: $login-warn,
+$login-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $login-primary,
+      accent: $login-accent,
+      warn: $login-warn,
+    ),
   )
-));
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($login-theme);
 
-@import './assets/scss/spacing.scss';
-@import './assets/scss/fonts.scss';
-@import './assets/scss/icons.scss';
+@import "./assets/scss/spacing.scss";
+@import "./assets/scss/fonts.scss";
+@import "./assets/scss/icons.scss";
+@import "./assets/scss/mat-field-form.scss";
 
 /* common rules */
 $font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $primary-color: #333;
 
 /* reset styles */
@@ -52,6 +54,15 @@ $primary-color: #333;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Roboto-Regular", "Helvetica Neue", sans-serif;
 }
 
 h1,
@@ -71,9 +82,17 @@ p {
   flex: 1;
 }
 
+.mat-button-base {
+  border-radius: 1.4rem !important;
+  padding: 0 2.2rem !important;
+  font-size: 1.3em;
+  &.mat-stroked-button {
+    border: 2px solid !important;
+  }
+}
 
 .link-signin {
-  position: absolute;
+  position: fixed;
   bottom: 1rem;
   left: 1rem;
   height: 1rem;
@@ -81,9 +100,7 @@ p {
 }
 
 a {
-
   &.primary {
-
     text-decoration: none;
     &:visited,
     &:hover {
@@ -93,11 +110,9 @@ a {
     &:hover {
       color: #125699;
     }
-
   }
 
   &.secondary {
-
     text-decoration: none;
     &:visited,
     &:hover {
@@ -107,16 +122,41 @@ a {
     &:hover {
       color: white;
     }
+  }
+}
 
+.card {
+  width: 36rem;
+  text-align: center;
+  position: relative;
+  &.bg-white {
+    background-color: white;
   }
 }
 
 h2.title-form {
   margin: 1.5rem 0;
+  text-align: center;
+}
+
+.mat-form-field {
+  width: 100%;
 }
 
 /* Responsive Styles */
 @media screen and (max-width: 960px) {
+
+  .link-signin {
+    top: 1rem;
+    bottom: initial;
+  }
+
+  .card {
+    width: auto;
+    &.bg-white {
+      background-color: transparent;
+    }
+  }
 
   h2.title-form {
     display: none;
@@ -126,7 +166,27 @@ h2.title-form {
     margin-top: 1rem;
   }
 
-}
+  .form {
+    background-color: white;
+    margin-top: 3rem;
+  }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto-Regular', "Helvetica Neue", sans-serif; }
+  .mat-button-base.mat-stroked-button {
+    border-radius: 0 !important;
+    width: 100%;
+    color: white !important;
+    background: #2196f3;
+    padding: 0.6rem !important;
+    border: 0px !important;
+  }
+
+  .slide-section {
+    width: calc(100% - 4rem)!important;
+    padding: 0 2rem;
+  }
+
+  .mat-form-field {
+    width: calc(100% - 4rem);
+    padding: 1rem 2rem 0;
+  }
+}

@@ -9,13 +9,16 @@ const routes: Routes = [
   {
     path: '',
     component: AuthComponent,
+    data: { animation: 1 },
     children: [
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        data: { animation: 2 }
       },{
         path: 'signin',
-        component: SigninComponent
+        component: SigninComponent,
+        data: { animation: 3 }
       },{
         path: '**',
         redirectTo: 'login'

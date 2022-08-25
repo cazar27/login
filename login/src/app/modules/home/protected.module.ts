@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProtectedRoutingModule } from './protected-routing.module';
-import { DashboardComponent } from 'src/app/pages/protected/dashboard/dashboard.component';
-import { HomeComponent } from 'src/app/pages/protected/dashboard/home/home.component';
+import { HomeComponent } from 'src/app/pages/home/home.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     HomeComponent,
   ],
   imports: [

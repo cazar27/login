@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { AlertComponent } from 'src/app/components/alert/alert.component';
+
+import { ValidatorService } from 'src/app/services/validators/validator.service';
 
 @Component({
   selector: 'app-login',
@@ -8,17 +12,73 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  email = new FormControl('', [Validators.required, Validators.email]);
+  btnText = 'Acceder';
+  switcherText = 'Recordar';
+  imgProfile = '/assets/img/logo.jpg';
+  hide = true;
 
-  constructor() { }
+  // create de formGroup with validations of each field
+  myForm: FormGroup = this._fb.group({
+    email: ['', [Validators.required, Validators.pattern(this._validatorService.emailPattern)]],
+    pwd: ['', [Validators.required, Validators.minLength(5)]],
+  });
 
-  getErrorMessage() {
-    if (this.email.hasError('required')) {
-      return 'You must enter a value';
+  get emailErrorMsg(): string {
+    // get the messege error by type error
+    const errors = this.myForm.get('email')?.errors;
+    if (errors?.['required']) {
+      return 'Email es obligatorio';
+    } else if (errors?.['pattern']) {
+      return 'No es un email valido';
+    } else if (errors?.['emailUtilizado']) {
+      return 'El email ya esta en uso';
+    } else {
+      return '';
     }
-
-    return this.email.hasError('email') ? 'Not a valid email' : '';
   }
-  ngOnInit(): void { }
+
+  constructor(
+    public dialog: MatDialog,
+    private _fb: FormBuilder,
+    private _validatorService: ValidatorService
+  ) { }
+
+
+  fieldNotValid(campo: string) {
+    // if field is not falid make focus
+    return this.myForm.get(campo)?.invalid
+      && this.myForm.get(campo)?.touched;
+  }
+
+  openDialog(title: string, desc: string): void {
+    this.dialog.open(AlertComponent, {
+      width: '18rem',
+      data: {title, desc},
+    })
+  }
+
+  submitForm() {
+    // fun asoc with submit form
+    this.myForm.markAllAsTouched();
+    let title: string, desc: string;
+    if (this.myForm.valid) {
+      console.log('ok');
+      title = 'Enhorabuena';
+      desc = 'Completado el formulario correctamente, pulse aceptar para continuar';
+      this.openDialog(title, desc);
+    } else {
+      title = 'Lo sentimos';
+      desc = 'Debe rellenar los campos correctamente antes de continuar';
+      this.openDialog(title, desc);
+    }
+  }
+
+  ngOnInit(): void {
+    //init value of field forms
+    this.myForm.reset({
+      email: '',
+      password: '',
+    })
+  }
 
 }
