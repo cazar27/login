@@ -11,7 +11,6 @@ export class ValidatorService {
 
   constructor() { }
 
-
   noStrider(control: FormControl): ValidationErrors | null {
     const valor: string = control.value?.trim().toLowerCase();
     if (valor === 'strider') {

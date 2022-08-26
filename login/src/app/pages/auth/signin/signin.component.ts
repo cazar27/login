@@ -68,6 +68,7 @@ export class SigninComponent implements OnInit {
 
     if(this.myForm.valid) {
       console.log('ok');
+      console.log('usuario registrado');
     }
 
   }

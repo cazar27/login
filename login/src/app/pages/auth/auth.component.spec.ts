@@ -1,14 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterOutlet } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthComponent } from './auth.component';
 
 describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
+  //let outlet: RouterOutlet;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AuthComponent ]
+      declarations: [ AuthComponent ],
+      imports: [
+        BrowserAnimationsModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+      ]
     })
     .compileComponents();
   });
@@ -22,4 +31,5 @@ describe('AuthComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });
