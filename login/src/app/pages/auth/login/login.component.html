@@ -9,7 +9,7 @@
       <mat-form-field appearance="fill">
         <mat-label><i class="icon-user"></i> Email</mat-label>
         <input matInput placeholder="" formControlName="email" required>
-        <mat-error *ngIf="fieldNotValid('email')">{{ emailErrorMsg }}</mat-error>
+        <mat-error *ngIf="fieldNotValid('email')">{{ emailErrorMsg() }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">

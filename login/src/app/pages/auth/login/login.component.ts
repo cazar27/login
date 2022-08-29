@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   emailErrorMsg(): string {
-    // the messege error by type error
+    // get the messege error by type error
     const errors = this.myForm.get('email')?.errors;
     if (errors?.['required']) {
       return 'Email es obligatorio';
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
       return '';
     }
   }
-
 
   fieldNotValid(campo: string) {
     // if field is not falid make focus
