@@ -16,7 +16,7 @@ export class SigninComponent implements OnInit {
 
   // create de formGroup with validations of each field
   myForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(this.validatorService.nombreApellidoPattern)]],
+    name: ['', [Validators.required, Validators.pattern(this.validatorService.nameAndLastNamePattern)]],
     email: ['', [Validators.required, Validators.pattern(this.validatorService.emailPattern)]],
     nickname: ['', [Validators.required, this.validatorService.noStrider]],
     pwd: ['', [Validators.required, Validators.minLength(5)]],
@@ -33,8 +33,6 @@ export class SigninComponent implements OnInit {
       return `${field} es un campo obligatorio`;
     } else if ( errors?.['pattern'] ) {
       return `No es un ${field} valido`;
-    } else if ( errors?.['emailUtilizado'] ) {
-      return `El ${field} ya esta en uso`;
     } else {
       return '';
     }

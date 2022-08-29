@@ -54,7 +54,7 @@ export class AuthService {
       );
   }
 
-  validToken(): Observable<boolean> {
+  public validToken(): Observable<boolean> {
 
     const url = `${this._baseUrl}/auth/renew`;
     const headers = new HttpHeaders()
@@ -71,7 +71,7 @@ export class AuthService {
   }
 
 
-  logout() {
+  public logout() {
     localStorage.clear();
   }
 

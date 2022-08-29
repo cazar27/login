@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { of } from 'rxjs';
-import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 
 import { AlertComponent } from './alert.component';
 
-xdescribe('AlertComponent', () => {
+describe('AlertComponent', () => {
   let component: AlertComponent;
   let fixture: ComponentFixture<AlertComponent>;
 
   const dialogMock = {
-    acept: () => { },
+    open: () => {
+      return dialogMock;
+    },
     close: () => { }
   };
 
@@ -33,7 +34,8 @@ xdescribe('AlertComponent', () => {
       declarations: [AlertComponent],
       imports: [MatDialogModule],
       providers: [
-        { provide: MatDialogRef, useValue: dialogMock }
+        { provide: MatDialogRef, useValue: dialogMock },
+        { provide: MAT_DIALOG_DATA, useValue: { myData: dialogReffsSpyObj.data } }
       ]
     })
       .compileComponents();
@@ -43,6 +45,8 @@ xdescribe('AlertComponent', () => {
     fixture = TestBed.createComponent(AlertComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.title = 'title';
+    component.description = 'description';
     expect(component.title).toEqual('title');
     expect(component.description).toEqual('description');
   });

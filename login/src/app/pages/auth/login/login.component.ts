@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { AlertComponent } from 'src/app/components/alert/alert.component';
 
+import { AlertComponent } from 'src/app/components/alert/alert.component';
 import { ValidatorService } from 'src/app/services/validators/validator.service';
 
 @Component({
@@ -23,25 +23,23 @@ export class LoginComponent implements OnInit {
     pwd: ['', [Validators.required, Validators.minLength(5)]],
   });
 
-  get emailErrorMsg(): string {
-    // get the messege error by type error
-    const errors = this.myForm.get('email')?.errors;
-    if (errors?.['required']) {
-      return 'Email es obligatorio';
-    } else if (errors?.['pattern']) {
-      return 'No es un email valido';
-    } else if (errors?.['emailUtilizado']) {
-      return 'El email ya esta en uso';
-    } else {
-      return '';
-    }
-  }
-
   constructor(
     public dialog: MatDialog,
     private _fb: FormBuilder,
     private _validatorService: ValidatorService
   ) { }
+
+  emailErrorMsg(): string {
+    // the messege error by type error
+    const errors = this.myForm.get('email')?.errors;
+    if (errors?.['required']) {
+      return 'Email es obligatorio';
+    } else if (errors?.['pattern']) {
+      return 'No es un email valido';
+    } else {
+      return '';
+    }
+  }
 
 
   fieldNotValid(campo: string) {
@@ -53,7 +51,7 @@ export class LoginComponent implements OnInit {
   openDialog(title: string, desc: string): void {
     this.dialog.open(AlertComponent, {
       width: '18rem',
-      data: {title, desc},
+      data: { title, desc },
     })
   }
 
@@ -77,8 +75,8 @@ export class LoginComponent implements OnInit {
     //init value of field forms
     this.myForm.reset({
       email: '',
-      password: '',
-    })
+      pwd: '',
+    });
   }
 
 }
