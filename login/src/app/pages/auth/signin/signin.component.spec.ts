@@ -1,7 +1,6 @@
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { of } from 'rxjs';
 
 import { SigninComponent } from './signin.component';
 
@@ -21,32 +20,15 @@ describe('SigninComponent', () => {
       ],
     })
     .compileComponents();
-  });
-
-  beforeEach(inject([FormBuilder], ( fb: FormBuilder) => {
     fixture = TestBed.createComponent(SigninComponent);
     component = fixture.componentInstance;
-    component.myForm = fb.group({
-      name: '',
-      email: '',
-      nickname: '',
-      pwd: '',
-      repeatpwd: ''
-    });
+  });
 
-    component.errorMsg('email');
-    component.ngOnInit();
+  it('should call submitForm', () => {
+    const spy = spyOn(component, 'submitForm').and.callThrough();
     component.submitForm();
-    component.myForm = fb.group({
-      name: 'Carlos Zamorano',
-      email: 'test@pruebatecnica.com',
-      nickname: 'carlos_zr',
-      pwd: '1234Prueba',
-      repeatpwd: '1234Prueba'
-    });
-    component.submitForm();
-    fixture.detectChanges();
-  }));
+    expect(spy).toHaveBeenCalled();
+  });
 
   it('should call errorMsg', () => {
     const spy = spyOn(component, 'errorMsg').and.callThrough();
@@ -54,9 +36,42 @@ describe('SigninComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should call errorMsg', () => {
+  it('should call submitForm with form valid data', inject([FormBuilder], ( fb: FormBuilder )  => {
+    component.myForm = fb.group({
+      name: '',
+      email: '',
+      nickname: '',
+      pwd: '',
+      repeatpwd: ''
+    });
+    const spy = spyOn(component, 'submitForm').and.callThrough();
+    component.submitForm();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call submitForm with form valid data', inject([FormBuilder], ( fb: FormBuilder )  => {
+    component.myForm = fb.group({
+      name: '',
+      email: 'aaa@',
+      nickname: '',
+      pwd: '',
+      repeatpwd: ''
+    });
     const spy = spyOn(component, 'errorMsg').and.callThrough();
-    component.errorMsg('nickname');
+    component.errorMsg('email');
+    expect(spy).toHaveBeenCalled();
+  }));
+
+
+  it('should call fieldNotValid', () => {
+    const spy = spyOn(component, 'fieldNotValid').and.callThrough();
+    component.fieldNotValid('email');
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call ngOnInit', () => {
+    const spy = spyOn(component, 'ngOnInit').and.callThrough();
+    component.ngOnInit();
     expect(spy).toHaveBeenCalled();
   });
 

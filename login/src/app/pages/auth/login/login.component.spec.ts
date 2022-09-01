@@ -49,24 +49,40 @@ describe('LoginComponent', () => {
       ]
     })
     .compileComponents();
-  });
-
-  beforeEach(inject([FormBuilder], ( fb: FormBuilder) => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+  });
+
+  it('should call submitForm', () => {
+    const spy = spyOn(component, 'submitForm').and.callThrough();
+    component.submitForm();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call emailErrorMsg', () => {
+    const spy = spyOn(component, 'emailErrorMsg').and.callThrough();
+    component.emailErrorMsg();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call submitForm with form valid data', inject([FormBuilder], ( fb: FormBuilder )  => {
     component.myForm = fb.group({
       email: 'aaaa@es.es',
       pwd: '12345',
     });
-    component.emailErrorMsg();
-    component.ngOnInit();
+    const spy = spyOn(component, 'submitForm').and.callThrough();
     component.submitForm();
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call emailErrorMsg with form valid data', inject([FormBuilder], ( fb: FormBuilder )  => {
     component.myForm = fb.group({
-      email: '',
+      email: 'aaaa@a',
       pwd: '12345',
     });
-    component.submitForm();
-    fixture.detectChanges();
+    const spy = spyOn(component, 'emailErrorMsg').and.callThrough();
+    component.emailErrorMsg();
+    expect(spy).toHaveBeenCalled();
   }));
 
   it('should call openDialog', () => {
@@ -75,9 +91,15 @@ describe('LoginComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should call emailErrorMsg', () => {
-    const spy = spyOn(component, 'emailErrorMsg').and.callThrough();
-    component.emailErrorMsg();
+  it('should call fieldNotValid', () => {
+    const spy = spyOn(component, 'fieldNotValid').and.callThrough();
+    component.fieldNotValid('email');
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should call ngOnInit', () => {
+    const spy = spyOn(component, 'ngOnInit').and.callThrough();
+    component.ngOnInit();
     expect(spy).toHaveBeenCalled();
   });
 
