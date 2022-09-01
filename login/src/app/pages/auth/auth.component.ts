@@ -8,11 +8,9 @@ import { slideInAnimation } from '../../animations/slide.animations';
   styleUrls: ['./auth.component.scss'],
   animations: [slideInAnimation]
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
 
   constructor() { }
-
-  ngOnInit(): void { }
 
   prepareRoute(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
