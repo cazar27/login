@@ -8,7 +8,7 @@ import { AuthComponent } from './auth.component';
 describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
-  //let outlet: RouterOutlet;
+  const routerMock = jasmine.createSpyObj('RouterOutlet', ['home']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -26,6 +26,12 @@ describe('AuthComponent', () => {
     fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should prepareRoute', () => {
+    const spy = spyOn(component, 'prepareRoute').and.callThrough();
+    component.prepareRoute(routerMock);
+    expect(spy).toHaveBeenCalled();
   });
 
   it('should create', () => {
