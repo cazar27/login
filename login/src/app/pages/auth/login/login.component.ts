@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { AlertComponent } from 'src/app/components/alert/alert.component';
 import { ValidatorService } from 'src/app/services/validators/validator.service';
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
+    private router: Router,
     public dialog: MatDialog,
     private _fb: FormBuilder,
     private _validatorService: ValidatorService
@@ -57,12 +59,15 @@ export class LoginComponent implements OnInit {
   submitForm() {
     // fun asoc with submit form
     this.myForm.markAllAsTouched();
+    const { email, pwd } = this.myForm.value;
     let title: string, desc: string;
     if (this.myForm.valid) {
-      console.log('ok');
+      console.log('login ok, usuario: ' + email);
       title = 'Enhorabuena';
       desc = 'Completado el formulario correctamente, pulse aceptar para continuar';
       this.openDialog(title, desc);
+      this.router.navigate(['/home']);
+      // here call authService to change validToken true
     } else {
       title = 'Lo sentimos';
       desc = 'Debe rellenar los campos correctamente antes de continuar';

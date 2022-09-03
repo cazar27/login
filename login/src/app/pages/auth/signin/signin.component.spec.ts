@@ -1,10 +1,12 @@
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
 import { SigninComponent } from './signin.component';
 
 describe('SigninComponent', () => {
+  const router = jasmine.createSpyObj('Router', ['navigate']);
   let component: SigninComponent;
   let fixture: ComponentFixture<SigninComponent>;
 
@@ -18,6 +20,7 @@ describe('SigninComponent', () => {
         ReactiveFormsModule,
         BrowserAnimationsModule
       ],
+      providers: [  { provide: Router, useValue: router } ],
     })
     .compileComponents();
     fixture = TestBed.createComponent(SigninComponent);

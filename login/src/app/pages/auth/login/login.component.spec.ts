@@ -7,8 +7,10 @@ import { of } from 'rxjs';
 import { AlertComponent } from 'src/app/components/alert/alert.component';
 import { LoginComponent } from './login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 
 describe('LoginComponent', () => {
+  const router = jasmine.createSpyObj('Router', ['navigate']);
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
@@ -44,6 +46,7 @@ describe('LoginComponent', () => {
         BrowserAnimationsModule
       ],
       providers: [
+        { provide: Router, useValue: router } ,
         { provide: MatDialogRef, useValue: dialogMock },
         { provide: MAT_DIALOG_DATA, useValue: { myData: dialogReffsSpyObj.data } }
       ]

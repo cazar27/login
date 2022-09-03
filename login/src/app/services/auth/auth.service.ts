@@ -12,12 +12,12 @@ import { User } from 'src/app/interfaces/user.interface';
 export class AuthService {
 
   private _baseUrl: string = environment.baseUrl;
-  private _usuario!: User;
+  private _user!: User;
 
   constructor(private http: HttpClient) { }
 
   public get usuario(): User {
-    return { ...this._usuario };
+    return { ...this._user };
   }
 
   public login(email: string, password: string): Observable<AuthResponse> {
@@ -69,7 +69,6 @@ export class AuthService {
         catchError(err => of(false))
       );
   }
-
 
   public logout() {
     localStorage.clear();

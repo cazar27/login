@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
 import { ValidatorService } from 'src/app/services/validators/validator.service';
+//import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
+
 export class SigninComponent implements OnInit {
 
   btnText = 'Registrarse';
@@ -29,9 +33,9 @@ export class SigninComponent implements OnInit {
   errorMsg(field: string): string {
 
     const errors = this.myForm.get(field)?.errors;
-    if ( errors?.['required'] ) {
+    if (errors?.['required']) {
       return `${field} es un campo obligatorio`;
-    } else if ( errors?.['pattern'] ) {
+    } else if (errors?.['pattern']) {
       return `No es un ${field} valido`;
     } else {
       return '';
@@ -39,18 +43,20 @@ export class SigninComponent implements OnInit {
   }
 
   constructor(
+    private router: Router,
     private fb: FormBuilder,
     private validatorService: ValidatorService
+    //private authService: AuthService,
   ) { }
 
+  // init value of field forms
   ngOnInit(): void {
-    //init value of field forms
     this.myForm.reset({
       name: 'Carlos Zamorano',
-      email: 'test@pruebatecnica.com',
+      email: 'carlos@mail.com',
       nickname: 'carlos_zr',
-      pwd: '1234Prueba',
-      repeatpwd: '1234Prueba'
+      pwd: '12345Car',
+      repeatpwd: '12345Car'
     })
   }
 
@@ -63,10 +69,11 @@ export class SigninComponent implements OnInit {
   // fun asoc with submit form
   submitForm() {
     this.myForm.markAllAsTouched();
+    const { name, email, nickname, pwd } = this.myForm.value;
 
     if(this.myForm.valid) {
       console.log('ok');
-      console.log('usuario registrado');
+      console.log('usuario registrado: ' + email);
     } else {
       console.log('el formulario no es valido')
     }
